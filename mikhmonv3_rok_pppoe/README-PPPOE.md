@@ -109,6 +109,12 @@ Module vérifié pour **RouterOS 7.x** (référence : 7.20.6, ARM, L009UiGS-2Hax
 - `lib/routeros_api.class.php` gère la méthode de connexion post-6.43 (mot de
   passe en clair sur l'API), donc RouterOS 7 est supporté. Le service `api`
   doit être activé sur le routeur (`/ip service print`).
+- La validité saisie sans unité est normalisée en jours (`30` devient `30d`).
+  C'est nécessaire : Mikrotik lit un nombre nu comme des **secondes** dans un
+  `interval` de scheduler, alors que l'opérateur qui tape `30` dans un champ
+  documenté « 30d = 30 jours » veut des jours. Sans cette normalisation,
+  l'activation à la première connexion et l'activation immédiate ne donnaient
+  pas la même durée.
 - Chaque activation ou renouvellement en mode « & Record » crée une entrée dans
   `/system script`. Sur un routeur à mémoire flash réduite, télécharger puis
   purger le rapport de ventes régulièrement (Report → Selling → CSV).

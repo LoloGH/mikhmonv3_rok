@@ -86,6 +86,25 @@ if (!function_exists('pppExpStamp')) {
   }
 }
 
+// Normalise a validity typed by the operator.
+// A bare number is ambiguous : Mikrotik reads it as seconds in a scheduler
+// interval, while the operator typing "30" in a field documented as
+// "30d = 30 days" means days. Anchor it to days so that the on-up script and
+// the PHP side (immediate activation, renewal) can never disagree.
+if (!function_exists('pppNormalizeValidity')) {
+  function pppNormalizeValidity($validity)
+  {
+    $validity = strtolower(trim($validity));
+    if ($validity === "") {
+      return "";
+    }
+    if (preg_match('/^\d+$/', $validity)) {
+      return $validity . "d";
+    }
+    return $validity;
+  }
+}
+
 // Convert a Mikrotik validity ("30d", "12h", "5h30m", "4w3d") to seconds.
 if (!function_exists('pppValidityToSeconds')) {
   function pppValidityToSeconds($validity)

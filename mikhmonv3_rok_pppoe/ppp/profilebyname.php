@@ -63,7 +63,7 @@ if (!isset($_SESSION["mikhmon"])) {
     $dnsserver = ($_POST['dnsserver']);
     $onlyone = ($_POST['onlyone']);
     $expmode = ($_POST['expmode']);
-    $validity = ($_POST['validity']);
+    $validity = pppNormalizeValidity($_POST['validity']);
     $getprice = ($_POST['price']);
     $getsprice = ($_POST['sprice']);
     $lockmode = ($_POST['lockunlock']);
