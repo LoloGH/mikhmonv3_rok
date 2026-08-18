@@ -251,3 +251,4 @@ Tanggal kadaluarsa disimpan pada '.$_comment.' klien.<br>
 <li>'.$_renew.' : menambah satu '.$_validity.' pada tanggal kadaluarsa, dihitung dari hari ini bila klien sudah kadaluarsa.</li>
 </ul>
 ';
+$_validity_no_unit = "Validity tanpa satuan: router membacanya sebagai detik. Buka profile lalu simpan ulang dengan satuan (30d).";

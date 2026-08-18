@@ -94,12 +94,19 @@ if (!function_exists('pppExpStamp')) {
 if (!function_exists('pppNormalizeValidity')) {
   function pppNormalizeValidity($validity)
   {
-    $validity = strtolower(trim($validity));
+    // Mikrotik accepts no whitespace inside a time value.
+    $validity = strtolower(preg_replace('/\s+/', '', $validity));
     if ($validity === "") {
       return "";
     }
     if (preg_match('/^\d+$/', $validity)) {
-      return $validity . "d";
+      $validity = $validity . "d";
+    }
+    // A value that carries no duration (0, 0d, junk) is no validity at all.
+    // Returning it would build a scheduler interval that expires the client
+    // on its first connection.
+    if (pppValidityToSeconds($validity) == 0) {
+      return "";
     }
     return $validity;
   }

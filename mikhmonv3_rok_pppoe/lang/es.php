@@ -252,3 +252,4 @@ La fecha de expiracion se guarda en el '.$_comment.' del cliente.<br>
 <li>'.$_renew.' : agrega una '.$_validity.' a la fecha de expiracion, desde hoy si el cliente ya expiro.</li>
 </ul>
 ';
+$_validity_no_unit = "Validez sin unidad: el router la lee como segundos. Abra el perfil y guardelo de nuevo con una unidad (30d).";

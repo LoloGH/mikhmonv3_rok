@@ -106,7 +106,13 @@ for ($i = 0; $i < $TotalReg; $i++) {
   echo "<td>" . $premote . "</td>";
   echo "<td>" . $pratelimit . "</td>";
   echo "<td>" . pppExpModeName($meta['expmode']) . "</td>";
-  echo "<td>" . $meta['validity'] . "</td>";
+  // A validity with no unit was saved before the normalisation existed : the
+  // router reads it as seconds. Flag it, re-saving the profile repairs it.
+  if ($meta['validity'] != "" && preg_match('/^\d+$/', $meta['validity'])) {
+    echo "<td><span class='text-danger' title='" . $_validity_no_unit . "'><i class='fa fa-exclamation-triangle'></i> " . $meta['validity'] . "</span></td>";
+  } else {
+    echo "<td>" . $meta['validity'] . "</td>";
+  }
   echo "<td style='text-align:right;'>" . pppPrice($meta['price'], $currency, $cekindo) . "</td>";
   echo "<td style='text-align:right;'>" . pppPrice($meta['sprice'], $currency, $cekindo) . "</td>";
   echo "<td>" . $meta['lock'] . "</td>";

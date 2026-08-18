@@ -252,3 +252,4 @@ The expiration date is stored in the '.$_comment.' of the client.<br>
 <li>'.$_renew.' : adds one '.$_validity.' to the expiration date, from today when the client is already expired.</li>
 </ul>
 ';
+$_validity_no_unit = "Validity without a unit: the router reads it as seconds. Open the profile and save it again with a unit (30d).";

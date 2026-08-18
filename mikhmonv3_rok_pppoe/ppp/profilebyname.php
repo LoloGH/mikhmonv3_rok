@@ -64,6 +64,10 @@ if (!isset($_SESSION["mikhmon"])) {
     $onlyone = ($_POST['onlyone']);
     $expmode = ($_POST['expmode']);
     $validity = pppNormalizeValidity($_POST['validity']);
+    if ($validity == "") {
+      // No usable validity : nothing to expire, keep the price only.
+      $expmode = "0";
+    }
     $getprice = ($_POST['price']);
     $getsprice = ($_POST['sprice']);
     $lockmode = ($_POST['lockunlock']);

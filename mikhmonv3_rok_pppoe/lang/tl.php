@@ -252,3 +252,4 @@ Ang petsa ng expiration ay naka-imbak sa '.$_comment.' ng kliyente.<br>
 <li>'.$_renew.' : nagdadagdag ng isang '.$_validity.' sa petsa ng expiration, mula ngayon kung expired na ang kliyente.</li>
 </ul>
 ';
+$_validity_no_unit = "Validity na walang unit: binabasa ito ng router bilang segundo. Buksan ang profile at i-save muli na may unit (30d).";
