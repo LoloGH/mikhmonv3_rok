@@ -94,6 +94,25 @@ Les enregistrements PPPoE utilisent le même format que ceux du hotspot
 (`/system script` avec `comment="mikhmon"`), ils apparaissent donc directement
 dans **Report → Selling** et dans **Log → User Log** sans modification.
 
+## Compatibilité RouterOS
+
+Module vérifié pour **RouterOS 7.x** (référence : 7.20.6, ARM, L009UiGS-2HaxD) :
+
+- `/system clock get date` renvoie une date ISO `yyyy-mm-dd`, et `next-run` du
+  scheduler renvoie `yyyy-mm-dd hh:mm:ss` (19 caractères). C'est la branche
+  `getxp > 15` du script `on-up`, et le format qu'attendent le moniteur
+  (`[:pick $comment 4] = "-"`) et le code PHP. Les branches 15 et 8 caractères
+  sont conservées pour RouterOS 6.
+- Les scripts générés utilisent `[:len ...]`, `[:pick ...]` et `disabled=no`
+  plutôt que les abréviations `[len ...]`, `[:pic ...]` et `disable=no` du
+  module hotspot d'origine, plus fragiles sur RouterOS 7.
+- `lib/routeros_api.class.php` gère la méthode de connexion post-6.43 (mot de
+  passe en clair sur l'API), donc RouterOS 7 est supporté. Le service `api`
+  doit être activé sur le routeur (`/ip service print`).
+- Chaque activation ou renouvellement en mode « & Record » crée une entrée dans
+  `/system script`. Sur un routeur à mémoire flash réduite, télécharger puis
+  purger le rapport de ventes régulièrement (Report → Selling → CSV).
+
 ## Remarques
 
 Quelques fichiers référencés par `index.php` sont absents de l'archive
